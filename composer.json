@@ -1,7 +1,7 @@
 {
     "name": "matear/sesy",
     "description": "Librería POO para agregar seguridad en las sesiones de PHP previniendo distintos tipos de ataques.",
-    "keywords": ["sessiones", "segurity", "xss", "Hijacking"],
+    "keywords": ["session", "segurity", "xss", "Hijacking"],
     "homepage": "http://github.com/matear/sesy",
     "type": "library",
     "license": "MIT",
