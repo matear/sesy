@@ -1,0 +1,23 @@
+{
+    "name": "matear/sesy",
+    "description": "Librería POO para agregar seguridad en las sesiones de PHP previniendo distintos tipos de ataques.",
+    "keywords": ["sessiones", "segurity", "xss", "Hijacking"],
+    "homepage": "http://github.com/matear/sesy",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Federico Lozada Mosto",
+            "email": "mostofreddy@gmail.com",
+            "homepage": "http://github.com/mostofreddy"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "sesy": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

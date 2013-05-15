@@ -1,0 +1,20 @@
+# see http://about.travis-ci.org/docs/user/languages/php/ for more hints
+language: php
+
+# list any PHP version you want to test againsts
+php:
+    # using major version aliases
+    - 5.3
+    - 5.4
+    - 5.5
+
+# install phpcodesniffer
+before_script:
+    - pyrus install pear/PHP_CodeSniffer
+    - phpenv rehash
+    - phpcs --config-set default_standard PEAR
+
+# run phpunit & phpcodesniffer
+script:
+    - phpcs --standard=tests/travisci-phpcs.xml --ignore=demos --extensions=php .
+    - phpunit --configuration tests/phpunit.xml
