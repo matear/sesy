@@ -186,4 +186,16 @@ class SessionTest extends \PHPUnit_Framework_TestCase
         $aux = \sesy\Session::get();
         $this->assertEquals(array("name" => "sesy"), $aux);
     }
+    /**
+     * Testea los metodo delete
+     *
+     * @return void
+     */
+    public function testDetele()
+    {
+        \sesy\Session::add("name", "sesy");
+        \sesy\Session::delete("name");
+        $aux = \sesy\Session::get("name", -1);
+        $this->assertEquals(-1, $aux);
+    }
 }
