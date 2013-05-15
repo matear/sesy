@@ -1,7 +1,7 @@
 __Sesy__
 ========
 
-[![Build Status](https://secure.travis-ci.org/matear/sesy.png)](http://travis-ci.org/matear/sesy)
+[![Build Status](https://travis-ci.org/matear/sesy.png?branch=master)](https://travis-ci.org/matear/sesy)
 
 Librería POO para agregar seguridad en las sesiones de PHP previniendo distintos tipos de ataques.
 
