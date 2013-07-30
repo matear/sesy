@@ -83,3 +83,6 @@ Demos
 -----
 
 Visite la carpeta de [demos](https://github.com/matear/sesy/tree/master/demos) para mas ejemplos
+
+Changelog
+---------
