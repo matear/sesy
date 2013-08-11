@@ -1,7 +1,7 @@
 __Sesy__
 ========
 
-[![Build Status](https://travis-ci.org/matear/sesy.png?branch=master)](https://travis-ci.org/matear/sesy)
+[![Build Status](https://travis-ci.org/mostofreddy/sesy.png?branch=master)](https://travis-ci.org/mostofreddy/sesy)
 
 Librería POO para agregar seguridad en las sesiones de PHP previniendo distintos tipos de ataques.
 
@@ -38,7 +38,9 @@ Es un tipo de ataque que solo puede darse en servidores compartidos
 
 Version
 -------
-v0.5
+
+- __v0.5__ stable
+- __v1.0__ desarrollo
 
 Licencia
 -------
@@ -48,16 +50,20 @@ Licencia
 Instalación
 -----------
 
+### dependencias
+
+- PHP 5.4.*
+
 ### Github
 
     cd /var/www
-    git clone git@github.com:matear/sesy.git
+    git clone git@github.com:mostofreddy/sesy.git
 
 ### Composer
 
     "require": {
-        "php": ">=5.3.0",
-        "matear/sesy": "0.*",
+        "php": ">=5.4.0",
+        "mostofreddy/sesy": "0.*",
     }
 
 Ejemplo de uso
@@ -82,7 +88,14 @@ Ejemplo de uso
 Demos
 -----
 
-Visite la carpeta de [demos](https://github.com/matear/sesy/tree/master/demos) para mas ejemplos
+Visite la carpeta de [demos](https://github.com/mostofreddy/sesy/tree/master/demos) para mas ejemplos
 
 Changelog
 ---------
+
+### v1.0 (en desarrollo)
+
+- Fixed bug [#5](https://github.com/mostofreddy/sesy/issues/5)
+- Se elimina compatibilidad con PHP 5.3.x
+
+### v0.5
