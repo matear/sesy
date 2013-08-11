@@ -1,7 +1,7 @@
 <phpunit bootstrap="bootstrap.php" colors="true" processIsolation="true">
     <testsuites>
-        <testsuite name="conty">
-            <file>tests/cases/SessionTest.php</file>
+        <testsuite name="sesy">
+            <file>tests/cases/SavePathTest.php</file>
         </testsuite>
     </testsuites>
     <logging>

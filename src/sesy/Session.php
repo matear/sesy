@@ -31,11 +31,12 @@ namespace sesy;
  */
 class Session
 {
-    const ERR_INVALID_SESSION_NAME = 'Invalid session name. The session name can only contain [a-zA-Z0-9] values';
+    const ERR_INVALID_SESSION_SAVE_PATH = "Invalid session.save_path. (is empty or is not writable)";
 
+    const ERR_INVALID_SESSION_NAME = 'Invalid session name. The session name can only contain [a-zA-Z0-9] values';
     const ERR_SESY_VIOLATED = "Invalid session";
     const ERR_INVALID_KEY = 'Invalid key for session value';
-    const ERR_INVALID_SESSION_SAVE_PATH = "Invalid session.save_path. (is empty or is not writable)";
+
 
     /**
      * Indica si la sesion fue inicializada o no
@@ -89,22 +90,24 @@ class Session
         'session.save_path'=>'/tmp' //-
     );
     /**
-     * Setea el path en donde se almacenaran las sesiones
+     * Setea el path en donde se almacenaran las sesiones.
+     * Si no se pasa ningún parámetro devuelve el path actual donde se almacenan las sesiones
      *
      * @param string $path path
      *
-     * @return self
+     * @return string
      */
-    static public function savePath($path)
+    static public function savePath($path=null)
     {
-        if (!is_string($path)
-            || ($path != ''
-            && (!is_dir($path) || !is_writable($path)))
-        ) {
-            throw new \InvalidArgumentException(static::ERR_INVALID_SESSION_SAVE_PATH);
+        if ($path !== null) {
+            $path = escapeshellcmd($path);
+            if (!is_dir($path) || !is_writable($path)) {
+                throw new \InvalidArgumentException(static::ERR_INVALID_SESSION_SAVE_PATH);
+            }
+            return session_save_path($path);
+        } else {
+            return session_save_path();
         }
-        static::$init['session.save_path'] = $path;
-        static::$init['session.save_handler'] = 'files';
     }
     /**
      * Nombre de la sesion actual
