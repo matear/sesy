@@ -58,11 +58,11 @@ Licencia
 Instalación
 -----------
 
-### dependencias
+### Requerimientos
 
 - PHP 5.4.*
-- Memcached deamon (opcional)
-- Módulo memcache (opcional)
+- [Memcached deamon](http://memcached.org) (opcional)
+- [Módulo memcache](http://php.net/manual/es/book.memcache.php) (opcional)
 
 ### Github
 
@@ -97,6 +97,11 @@ Ejemplos base de uso
     $ses->start();
     $ses->set("mykey", "value");
     $data = $ses->get("mykey");
+
+Tests
+-----
+
+    phpunit --configuration tests/phpunit.xml
 
 Demos
 -----
