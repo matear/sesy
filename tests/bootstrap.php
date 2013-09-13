@@ -16,4 +16,5 @@
  * @link       http://www.mostofreddy.com.ar
  */
 $path = realpath(__DIR__."/../");
+require_once $path.'/src/sesy/SessionConfig.php';
 require_once $path.'/src/sesy/Session.php';

@@ -2,9 +2,9 @@
 /**
  * SessionTest
  *
- * PHP version 5.3
+ * PHP version 5.4
  *
- * Copyright (c) 2012 mostofreddy <mostofreddy@gmail.com>
+ * Copyright (c) 2013 mostofreddy <mostofreddy@gmail.com>
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category   Test
@@ -17,7 +17,7 @@
  */
 namespace sesy\tests\cases;
 /**
- * Test unitario para la clase \sesy\Session
+ * Test unitario para testear el seteo del path donde se almacenan las sesiones en filesystem
  *
  * @category   Test
  * @package    Sesy
@@ -30,172 +30,80 @@ namespace sesy\tests\cases;
 class SessionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Testea el metodo savePath pasandole un parametro incorrecto
+     * Helper. Genera un token valido
      *
-     * @expectedException \InvalidArgumentException
-     * @return void
+     * @access protected
+     * @return string
      */
-    public function testSavePathException()
+    protected function generateToken()
     {
-        \sesy\Session::savePath("/file");
+        $_SERVER['HTTP_USER_AGENT'] = 'Mozilla';
+        ini_set("session.name", "sesyTest");
+        return sha1(md5($_SERVER['HTTP_USER_AGENT']."sesyTest"));
     }
     /**
-     * Testea el metodo savePath
+     * Testea el metood generateToken de la clase \sesy\Session
      *
+     * @access public
      * @return void
      */
-    public function testSavePath()
+    public function testGenerateToken()
     {
-        \sesy\Session::savePath("/tmp");
-        $aux = \PHPUnit_Framework_Assert::readAttribute("\sesy\Session", 'init');
-
-        $this->assertEquals('files', $aux['session.save_handler']);
-        $this->assertEquals('/tmp', $aux['session.save_path']);
-    }
-    /**
-     * Testea el metodo name pasandole un valor incorrecto
-     *
-     * @expectedException \InvalidArgumentException
-     * @return void
-     */
-    public function testNameException()
-    {
-        $expected = "sesyTests_1";
-        \sesy\Session::name($expected);
-    }
-    /**
-     * Testea el metodo name
-     *
-     * @return void
-     */
-    public function testName()
-    {
-        $expected = "sesyTests";
-        \sesy\Session::name($expected);
-        $aux1 = \PHPUnit_Framework_Assert::readAttribute("\sesy\Session", 'init');
-        $aux2 = \PHPUnit_Framework_Assert::readAttribute("\sesy\Session", 'token');
-
-        $this->assertEquals($expected, $aux1['session.name']);
-        $this->assertEquals($expected, $aux2);
-    }
-    /**
-     * Testea el metodo cookies
-     *
-     * @return void
-     */
-    public function testCookies()
-    {
-        $expected = array(
-            'lifetime' => 400,
-            'httponly' => 1,
-            'useOnlyCookies' => 1
+        $expected = $this->generateToken();
+        $ses = new \sesy\Session();
+        $class = new \ReflectionClass($ses);
+        $method = $class->getMethod('generateToken');
+        $method->setAccessible(true);
+        $this->assertEquals(
+            $expected,
+            $method->invoke($ses)
         );
-        \sesy\Session::cookies($expected['lifetime'], $expected['httponly'], $expected['useOnlyCookies']);
-        $aux = \PHPUnit_Framework_Assert::readAttribute("\sesy\Session", 'init');
+    }
 
-        $this->assertEquals($expected['lifetime'], $aux['session.cookie_lifetime']);
-        $this->assertEquals($expected['httponly'], $aux['session.cookie_httponly']);
-        $this->assertEquals($expected['useOnlyCookies'], $aux['session.use_only_cookies']);
-    }
     /**
-     * Testea el metodo gc
+     * Testea pasar un directorio invalido a la funcion storeInFiles de la clase \sesy\Session y lance una excepcion
      *
+     * @access public
      * @return void
      */
-    public function testGc()
+    public function testStoreInFilesFail()
     {
-        $expected = array(
-            'gc_maxlifetime' => 400,
-            'gc_divisor' => 100,
-            'gc_probability' => 50
-        );
-        \sesy\Session::gc($expected['gc_maxlifetime'], $expected['gc_divisor'], $expected['gc_probability']);
-        $aux = \PHPUnit_Framework_Assert::readAttribute("\sesy\Session", 'init');
+        $obj = new \sesy\Session();
 
-        $this->assertEquals($expected['gc_maxlifetime'], $aux['session.gc_maxlifetime']);
-        $this->assertEquals($expected['gc_divisor'], $aux['session.gc_divisor']);
-        $this->assertEquals($expected['gc_probability'], $aux['session.gc_probability']);
+        $path = realpath(__DIR__."/../")."/invalidFolder";
+        try {
+            $obj->storeInFiles($path);
+        } catch (\Exception $e) {
+            $this->assertEquals(
+                sprintf(\sesy\Session::ERR_INVALID_SESSION_PATH, $path),
+                $e->getMessage()
+            );
+        }
     }
     /**
-     * Testea el metodo hash
+     * Testea la funcion storeInFiles de la clase \sesy\Session
      *
+     * @access public
      * @return void
      */
-    public function testHash()
+    public function testStoreInFiles()
     {
-        $expected = 1;
-        \sesy\Session::hash($expected);
-        $aux = \PHPUnit_Framework_Assert::readAttribute("\sesy\Session", 'init');
-
-        $this->assertEquals($expected, $aux['session.hash_function']);
+        $path = "/tmp";
+        $obj = new \sesy\Session();
+        $obj->storeInFiles($path);
+        $this->assertEquals($path, ini_get("session.save_path"));
     }
     /**
-     * Testea el metodo exprire
+     * Testea configurar las sesiones con mmc
      *
+     * @access  public
      * @return void
      */
-    public function testExpire()
+    public function testStoreInMmc()
     {
-        $expected = 300;
-        \sesy\Session::expire($expected);
-        $aux = \PHPUnit_Framework_Assert::readAttribute("\sesy\Session", 'init');
-
-        $this->assertEquals($expected, $aux['session.cookie_lifetime']);
-        $this->assertEquals($expected, $aux['session.gc_maxlifetime']);
-    }
-    /**
-     * Testea el metodo start
-     *
-     * @return void
-     */
-    public function testStart()
-    {
-        \sesy\Session::start();
-        $aux = \PHPUnit_Framework_Assert::readAttribute("\sesy\Session", 'started');
-        $this->assertTrue($aux);
-    }
-    /**
-     * Testea los metodos add/get
-     *
-     * @return void
-     */
-    public function testAddGet()
-    {
-        \sesy\Session::add("name", "sesy");
-        $aux = \sesy\Session::get("name");
-        $this->assertEquals("sesy", $aux);
-    }
-    /**
-     * Testea el metodo add pasandole un parametro incorrecto como key
-     *
-     * @expectedException \InvalidArgumentException
-     * @return void
-     */
-    public function testAddException()
-    {
-        \sesy\Session::add(new \StdClass(), "sesy");
-    }
-    /**
-     * Testea los metodos add/get
-     *
-     * @return void
-     */
-    public function testAddGetAll()
-    {
-        \sesy\Session::add("name", "sesy");
-        $aux = \sesy\Session::get();
-        $this->assertEquals(array("name" => "sesy"), $aux);
-    }
-    /**
-     * Testea los metodo delete
-     *
-     * @return void
-     */
-    public function testDetele()
-    {
-        \sesy\Session::add("name", "sesy");
-        \sesy\Session::delete("name");
-        $aux = \sesy\Session::get("name", -1);
-        $this->assertEquals(-1, $aux);
+        $obj = new \sesy\Session();
+        $obj->storeInMmc();
+        $this->assertEquals('memcache', ini_get("session.save_handler"));
+        $this->assertEquals('tcp://localhost:11211', ini_get("session.save_path"));
     }
 }
