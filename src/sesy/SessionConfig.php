@@ -2,9 +2,9 @@
 /**
  * SessionConfig
  *
- * PHP version 5.3
+ * PHP version 5.4
  *
- * Copyright (c) 2012 mostofreddy <mostofreddy@gmail.com>
+ * Copyright (c) 2013 mostofreddy <mostofreddy@gmail.com>
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category   Sesy
@@ -69,13 +69,6 @@ namespace sesy;
  *
  * Habilitar el handler nativo de de Memcache
  *
- *
- *
- *
- *
- *
- * Seteo de handlers de sesion customizados
- *
  * Cache
  *     session.cache_limiter: (nocache, private, private_no_expire, public)
  *         especifica el método de control de caché usado por páginas de sesión
@@ -97,6 +90,9 @@ namespace sesy;
 class SessionConfig
 {
     const ERR_INVALID_SESSION_NAME = 'Nombre de sesion inválido. Debe ser una cadena alfanumérica';
+    const ERR_INVALID_SESSION_HASH = 'Se definio mal el algoritmo para generar el hash. Los valores posibles son: 0 (MD5) y 1 (SHA-1)';
+    const ERR_INVALID_SESSION_PATH = 'El path "%s" no es un directorio válido o no tiene permisos de escritura/lectura';
+    const ERR_INVALID_SESSION_CACHE = 'Opción inválida para el cache de sesion, las opciones permitidas son: %s';
     /**
      * Nombre de la sesion actual
      *
@@ -110,22 +106,18 @@ class SessionConfig
             throw new \InvalidArgumentException(static::ERR_INVALID_SESSION_NAME);
         }
         ini_set('session.name', $name);
-        //static::$token = $name;
         return $this;
     }
     /**
      * Define el funcionamiento del garbage collector de sessiones
      *
-     * @param int $maxLife     especifica el número de segudos transcurridos después de que la información sea vista como 'basura'
-     *                         y potencialmente limpiada.
-     * @param int $divisor     junto con session.gc_probability define la probabilidad de que el proceso de gc sea ejecutado
      * @param int $probability se usa junto con session.gc_divisor para manejar la probabilidad de que la rutina de gc
+     * @param int $divisor     junto con session.gc_probability define la probabilidad de que el proceso de gc sea ejecutado
      *
      * @return \sesy\SessionConfig
      */
-    public function gc($maxLife = 300, $divisor = 100, $probability = 50)
+    public function gc($probability = 50, $divisor = 100)
     {
-        ini_set('session.gc_maxlifetime', (int) $maxLife);
         ini_set('session.gc_divisor', (int) $divisor);
         ini_set('session.gc_probability', (int) $probability);
         return $this;
@@ -141,21 +133,32 @@ class SessionConfig
      */
     public function hash($hash = 1)
     {
-        ini_set('session.hash_function', (int) $hash);
+        $hash = (int) $hash;
+        if (!in_array($hash, [0, 1])) {
+            throw new \InvalidArgumentException(static::ERR_INVALID_SESSION_HASH);
+        }
+        ini_set('session.hash_function', $hash);
         return $this;
     }
     /**
      * Sete la configuracion de las cookies en session
      *
-     * @param integer $httpOnly       Marca la cookie como accesible sólo a través del protocolo HTTP.
-     * @param integer $useOnlyCookies especifica si el módulo sólo usará cookies para almacenar el id de sesión en la parte del cliente
+     * @param bool   $httpOnly       Marca la cookie como accesible sólo a través del protocolo HTTP. (Default: true)
+     * @param bool   $useOnlyCookies Especifica si el módulo sólo usará cookies para almacenar el id de sesión en
+     *                               la parte del cliente (Default: true)
+     * @param string $path           Especifica la ruta a establecer en la cookie de sesión. (Default: /)
+     * @param string $domain         Especifica el dominio a establecer en la cookie de sesión. (Default: '')
+     * @param bool   $secure         Especifica si las cookies deberían enviarse sólo sobre conexiones seguras. (Default: false)
      *
      * @return \sesy\SessionConfig
      */
-    public function cookies($httpOnly = 1, $useOnlyCookies = 1)
+    public function cookies($httpOnly = true, $useOnlyCookies = true, $path='/', $domain='', $secure=false)
     {
-        ini_set('session.cookie_httponly', (int) $httpOnly);
-        init_set('session.use_only_cookies', (int) $useOnlyCookies);
+        ini_set('session.cookie_httponly', $httpOnly);
+        ini_set('session.use_only_cookies', $useOnlyCookies);
+        ini_set('session.cookie_path', $path);
+        ini_set('session.cookie_domain', $domain);
+        ini_set('session.cookie_secure', $secure);
         return $this;
     }
     /**
@@ -182,7 +185,9 @@ class SessionConfig
     {
         $path = escapeshellcmd($path);
         if (!is_dir($path) || !is_writable($path)) {
-            throw new \InvalidArgumentException('El path "'.$path.'" no es un directorio válido o no tiene permisos de escritura/lectura');
+            throw new \InvalidArgumentException(
+                sprintf(static::ERR_INVALID_SESSION_PATH, $path)
+            );
         }
         ini_set('session.save_handler', 'files');
         session_save_path($path);
@@ -191,16 +196,50 @@ class SessionConfig
     /**
      * Habilita el handler nativo de de Memcache
      *
-     * @param string $host host del mmc
-     * @param int    $port puerto de mmc
+     * @param string $host host del mmc (Default: localhost)
+     * @param int    $port puerto de mmc (Default: 11211)
      *
      * @return \sesy\SessionConfig
      */
-    public function enableMmc($host, $port)
+    public function enableMmc($host='localhost', $port=11211)
     {
         $port = (int) $port;
         ini_set('session.save_handler', 'memcache');
         session_save_path("tcp://".$host.":".$port);
+        return $this;
+    }
+
+    /**
+     * Setea la privacidad del cache
+     *
+     * @param string $cache tipo de cache
+     *
+     * @access public
+     * @return mixed Value.
+     */
+    public function cache($cache)
+    {
+        $opciones = ['nocache', 'private', 'private_no_expire', 'public'];
+        if (!in_array($cache, $opciones)) {
+            throw new \InvalidArgumentException(
+                sprintf(static::ERR_INVALID_SESSION_CACHE, implode(', ', $opciones))
+            );
+        }
+        ini_set('session.cache_limiter', $cache);
+        return $this;
+    }
+
+    /**
+     * Si está habilitado sid transparente o no
+     *
+     * @param bool $trans booleano que habilita o no. (Default: false)
+     *
+     * @access public
+     * @return mixed Value.
+     */
+    public function transid($trans=false)
+    {
+        ini_set('session.use_trans_sid', $trans);
         return $this;
     }
 }
