@@ -17,4 +17,7 @@ before_script:
 # run phpunit & phpcodesniffer
 script:
     - phpcs --standard=tests/travisci-phpcs.xml --extensions=php .
-    - phpunit --configuration tests/phpunit.xml --coverage-clover build/result/clover.xml
+    - phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
+
+after_script:
+ - php vendor/bin/coveralls -v
