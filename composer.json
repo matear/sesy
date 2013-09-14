@@ -1,17 +1,24 @@
 {
     "name": "mostofreddy/sesy",
-    "description": "Librería POO para agregar seguridad en las sesiones de PHP previniendo distintos tipos de ataques.",
-    "keywords": ["session", "segurity", "xss", "Hijacking"],
-    "homepage": "http://github.com/mostofreddy/sesy",
+    "description": "Librería para el manejo, configuración y seguridad de sesiones en PHP.",
+    "version":"1.0.0",
     "type": "library",
+    "keywords": ["session", "segurity", "xss", "Hijacking", "memcache"],
+    "homepage": "http://github.com/mostofreddy/sesy",
+    "time":"2013-09-14",
     "license": "MIT",
     "authors": [
         {
             "name": "Federico Lozada Mosto",
             "email": "mostofreddy@gmail.com",
-            "homepage": "http://github.com/mostofreddy"
+            "homepage": "http://github.com/mostofreddy",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "email": "mostofreddy@gmail.com",
+        "irc": "https://github.com/mostofreddy/sesy/issues"
+    },
     "autoload": {
         "psr-0": {
             "sesy": "src/"
