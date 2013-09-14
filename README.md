@@ -2,6 +2,7 @@ __Sesy__
 ========
 
 [![Build Status](https://travis-ci.org/mostofreddy/sesy.png?branch=master)](https://travis-ci.org/mostofreddy/sesy)
+[![Latest Stable Version](https://poser.pugx.org/mostofreddy/sesy/v/stable.png)](https://packagist.org/packages/mostofreddy/sesy)
 
 Librería para el manejo, configuración y seguridad de sesiones en PHP.
 
