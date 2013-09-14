@@ -1,7 +1,7 @@
 {
     "name": "mostofreddy/sesy",
     "description": "Librería para el manejo, configuración y seguridad de sesiones en PHP.",
-    "version":"1.0.0",
+    "version":"v1.0.0",
     "type": "library",
     "keywords": ["session", "segurity", "xss", "Hijacking", "memcache"],
     "homepage": "http://github.com/mostofreddy/sesy",
