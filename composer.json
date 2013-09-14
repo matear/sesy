@@ -17,7 +17,7 @@
     ],
     "support": {
         "email": "mostofreddy@gmail.com",
-        "irc": "https://github.com/mostofreddy/sesy/issues"
+        "issues": "https://github.com/mostofreddy/sesy/issues"
     },
     "autoload": {
         "psr-0": {
