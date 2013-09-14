@@ -9,6 +9,8 @@ php:
 
 # install phpcodesniffer
 before_script:
+    - wget http://getcomposer.org/composer.phar
+    - php composer.phar install --dev --no-interaction
     - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - pyrus install pear/PHP_CodeSniffer
     - phpenv rehash
@@ -20,4 +22,4 @@ script:
     - phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
 
 after_script:
- - php vendor/bin/coveralls -v
+    - php vendor/bin/coveralls -v
