@@ -9,6 +9,7 @@ php:
 
 # install phpcodesniffer
 before_script:
+    - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - pyrus install pear/PHP_CodeSniffer
     - phpenv rehash
     - phpcs --config-set default_standard PEAR
