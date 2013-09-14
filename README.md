@@ -114,7 +114,7 @@ Visite la carpeta de [demos](https://github.com/mostofreddy/sesy/tree/master/dem
 Changelog
 ---------
 
-### v1.0 (en desarrollo)
+### v1.0
 
 - Fixed bug [#5](https://github.com/mostofreddy/sesy/issues/5)
 - Se elimina compatibilidad con PHP 5.3.x
