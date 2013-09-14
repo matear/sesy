@@ -2,7 +2,9 @@ __Sesy__
 ========
 
 [![Build Status](https://travis-ci.org/mostofreddy/sesy.png?branch=master)](https://travis-ci.org/mostofreddy/sesy)
+[![Coverage Status](https://coveralls.io/repos/mostofreddy/sesy/badge.png?branch=master)](https://coveralls.io/r/mostofreddy/sesy?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/mostofreddy/sesy/v/stable.png)](https://packagist.org/packages/mostofreddy/sesy)
+[![Dependency Status](https://www.versioneye.com/user/projects/5233eeab632bac737300150e/badge.png)](https://www.versioneye.com/user/projects/5233eeab632bac737300150e)
 
 Librería para el manejo, configuración y seguridad de sesiones en PHP.
 
