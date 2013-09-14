@@ -11,6 +11,9 @@ Librería para el manejo, configuración y seguridad de sesiones en PHP.
 Descripción
 -----------
 
+- version [html](http://mostofreddy.github.io/sesy/index.html)
+- version [pdf](http://mostofreddy.github.io/sesy/download/sesy.pdf)
+
 ### Configuración
 
 Permite setear la configuración de las sesiones en tiempo de ejecución cuando no se tiene acceso a modificar directamete las directivas
@@ -46,6 +49,11 @@ La clase \sesy\SessionSecure configura de forma automatica las sesiones para que
 - Session Hijacking
 - Session Fixation
 - Cross-Site Session Transfer
+
+API
+---
+
+Ver [API](http://mostofreddy.github.io/sesy/api/)
 
 Versión
 -------
