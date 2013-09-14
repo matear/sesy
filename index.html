@@ -1,1 +1,194 @@
-My GitHub Page
+<html>
+<head>
+    <title>Documentanción de Sesy</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- jquery -->
+    <script src="js/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- custom -->
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <!-- NAVBAR -->
+    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>-->
+                <a class="navbar-brand" href="#">Documentanción de Sesy</a>
+            </div>
+            <!--
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            -->
+        </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="container container-body">
+        <h1><strong>Sesy</strong></h1>
+
+<p><a href="https://travis-ci.org/mostofreddy/sesy"><img src="https://travis-ci.org/mostofreddy/sesy.png?branch=master" alt="Build Status" /></a>
+<a href="https://coveralls.io/r/mostofreddy/sesy?branch=master"><img src="https://coveralls.io/repos/mostofreddy/sesy/badge.png?branch=master" alt="Coverage Status" /></a>
+<a href="https://packagist.org/packages/mostofreddy/sesy"><img src="https://poser.pugx.org/mostofreddy/sesy/v/stable.png" alt="Latest Stable Version" /></a>
+<a href="https://www.versioneye.com/user/projects/5233eeab632bac737300150e"><img src="https://www.versioneye.com/user/projects/5233eeab632bac737300150e/badge.png" alt="Dependency Status" /></a></p>
+
+<p>Librería para el manejo, configuración y seguridad de sesiones en PHP.</p>
+
+<h2>Descripción</h2>
+
+<h3>Configuración</h3>
+
+<p>Permite setear la configuración de las sesiones en tiempo de ejecución cuando no se tiene acceso a modificar directamete las directivas
+en el archivo php.ini.
+Los valores que permite modificar son:</p>
+
+<ul>
+<li>Nombre de session</li>
+<li>Garbage collector</li>
+<li>Algoritmo que utiliza php para generar los IDs de sesion</li>
+<li>Cookies</li>
+<li>Tiempo de vida de una sesion</li>
+<li>Directorio donde se almacenan los archivos de sesion</li>
+<li>Habilitar Memcache para almacenar las sesiones</li>
+<li>Cache</li>
+</ul>
+
+<p>NOTA: Se recomienda, por temas de rendimiento, que si tiene acceso al archivo php.ini modifique en él los datos y no utilice esta clase</p>
+
+<h3>Wraper POO</h3>
+
+<p>La clase \sesy\Session es un wrapper POO para el manejo de las sesiones, con ella podemos desacoplar el uso de las variables de sesion de
+nuestras clases/funciones mediante dependencias.</p>
+
+<ul>
+<li>guardar/recuperar/borrar valores en sesion</li>
+<li>inicializar una sesion (cequeando que no este inicializada anteriormente)</li>
+<li>cerrado de sesion, borrado de datos y archivos</li>
+<li>Setear el directorio donde se almacenan los archivos de sesion</li>
+<li>Configurar Memcache como storage de sesion</li>
+</ul>
+
+<h3>Seguridad</h3>
+
+<p>La clase \sesy\SessionSecure configura de forma automatica las sesiones para que sean seguras previniendo ataques del tipo:</p>
+
+<ul>
+<li>Session Hijacking</li>
+<li>Session Fixation</li>
+<li>Cross-Site Session Transfer</li>
+</ul>
+
+<h2>API</h2>
+
+<p>Ver</p>
+
+<h2>Versión</h2>
+
+<ul>
+<li><strong>v1.0.0</strong> stable</li>
+<li><strong>v1.1.0</strong> desarrollo</li>
+</ul>
+
+<h2>Licencia</h2>
+
+<p><a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p>
+
+<h2>Instalación</h2>
+
+<h3>Requerimientos</h3>
+
+<ul>
+<li>PHP 5.4.*</li>
+<li><a href="http://memcached.org">Memcached deamon</a> (opcional)</li>
+<li><a href="http://php.net/manual/es/book.memcache.php">Módulo memcache</a> (opcional)</li>
+</ul>
+
+<h3>Github</h3>
+
+<pre><code>cd /var/www
+git clone git@github.com:mostofreddy/sesy.git
+</code></pre>
+
+<h3>Composer</h3>
+
+<pre><code>"require": {
+    "php": "&gt;=5.4.0",
+    "mostofreddy/sesy": "1.0.*",
+}
+</code></pre>
+
+<h2>Ejemplos base de uso</h2>
+
+<h3>configuración</h3>
+
+<pre><code>$sesConfig = new \sesy\SessionConfig();
+$sesConfig-&gt;name("sesy")
+    -&gt;expire(60)
+    .....
+    -&gt;gc();
+</code></pre>
+
+<h3>seguridad</h3>
+
+<pre><code>\sesy\SessionSecure::secure();
+</code></pre>
+
+<h3>uso</h3>
+
+<pre><code>$ses = new \sesy\Session();
+$ses-&gt;start();
+$ses-&gt;set("mykey", "value");
+$data = $ses-&gt;get("mykey");
+</code></pre>
+
+<h2>Tests</h2>
+
+<pre><code>phpunit --configuration tests/phpunit.xml
+</code></pre>
+
+<h2>Demos</h2>
+
+<p>Visite la carpeta de <a href="https://github.com/mostofreddy/sesy/tree/master/demos">demos</a> para mas ejemplos</p>
+
+<h2>Changelog</h2>
+
+<h3>v1.0</h3>
+
+<ul>
+<li>Fixed bug <a href="https://github.com/mostofreddy/sesy/issues/5">#5</a></li>
+<li>Se elimina compatibilidad con PHP 5.3.x</li>
+<li>Feature: Desacoplar lógica de configuración <a href="https://github.com/mostofreddy/sesy/issues/11">#11</a></li>
+<li>Feature: Implementar Handler: memcache <a href="https://github.com/mostofreddy/sesy/issues/1">#1</a></li>
+<li>Feature: Abstracción de seguridad <a href="https://github.com/mostofreddy/sesy/issues/12">#12</a></li>
+</ul>
+
+<h3>v0.5</h3>
+<div id="footerphpmdtohtml">
+    <p class="">
+        Documentation is powered by <a href="https://github.com/mostofreddy/nicereadme">nicereadme</a>
+        and generated on Sat, 14 Sep 2013 07:14:40 -0300. <br/>
+        © Copyright 2013 - Mostofreddy
+    </p>
+</div><div class="forkme">
+    <a href="https://github.com/mostofreddy/sesy" >
+        <img style="position: absolute; top: 0; right: 0; border: 0;"
+            src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"
+        />
+    </a>
+</div>
+    </div>
+
+</body>
+</html>
