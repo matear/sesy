@@ -106,4 +106,22 @@ class SessionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('memcache', ini_get("session.save_handler"));
         $this->assertEquals('tcp://localhost:11211', ini_get("session.save_path"));
     }
+
+    /**
+     * Testea el metodo destroy
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function testDestroy()
+    {
+        $obj = new \sesy\Session();
+        $obj->start();
+        $obj->destroy();
+        $this->assertEquals(
+            session_status(),
+            1
+        );
+    }
 }
