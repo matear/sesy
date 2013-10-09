@@ -100,14 +100,34 @@ Ejemplos base de uso
 
 ### seguridad
 
+Setea parametros de seguridad de forma automática.
+
     \sesy\SessionSecure::secure();
 
-### uso
+### Uso
+
+#### Instanciación
 
     $ses = new \sesy\Session();
     $ses->start();
-    $ses->set("mykey", "value");
-    $data = $ses->get("mykey");
+
+#### Guardar datos
+
+    $ses->set("mykey1", "value");
+    $ses->set("mykey2", new \StdClass);
+    $ses->set("mykey3", array());
+
+#### Recuperar datos
+
+    $data1 = $ses->get("mykey1");
+
+#### Recuperar todos los datos de session
+
+    $allData = $ses->get();
+
+#### Datos por default cuando no existe la clave en sesion
+
+    $defaultData = $ses->get("invalidKey", "data not found");
 
 Tests
 -----
@@ -122,7 +142,12 @@ Visite la carpeta de [demos](https://github.com/mostofreddy/sesy/tree/master/dem
 Changelog
 ---------
 
-### v1.0
+### Master
+
+- Validaciones de tipo de dato los metodos set, get, delete
+- Posibilidad de cambiar el nombre de sesion
+
+### v1.0.0
 
 - Fixed bug [#5](https://github.com/mostofreddy/sesy/issues/5)
 - Se elimina compatibilidad con PHP 5.3.x
