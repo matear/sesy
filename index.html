@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Documentanción de Sesy</title>
+    <title>Documentación de Sesy</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -21,7 +21,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>-->
-                <a class="navbar-brand" href="#">Documentanción de Sesy</a>
+                <a class="navbar-brand" href="#">Documentación de Sesy</a>
             </div>
             <!--
             <div class="collapse navbar-collapse">
@@ -102,7 +102,7 @@ nuestras clases/funciones mediante dependencias.</p>
 <h2>Versión</h2>
 
 <ul>
-<li><strong>v1.0.0</strong> stable</li>
+<li><strong>v1.0.1</strong> stable</li>
 <li><strong>v1.1.0</strong> desarrollo</li>
 </ul>
 
@@ -147,15 +147,39 @@ $sesConfig-&gt;name("sesy")
 
 <h3>seguridad</h3>
 
+<p>Setea parametros de seguridad de forma automática.</p>
+
 <pre><code>\sesy\SessionSecure::secure();
 </code></pre>
 
-<h3>uso</h3>
+<h3>Uso</h3>
+
+<h4>Instanciación</h4>
 
 <pre><code>$ses = new \sesy\Session();
 $ses-&gt;start();
-$ses-&gt;set("mykey", "value");
-$data = $ses-&gt;get("mykey");
+</code></pre>
+
+<h4>Guardar datos</h4>
+
+<pre><code>$ses-&gt;set("mykey1", "value");
+$ses-&gt;set("mykey2", new \StdClass);
+$ses-&gt;set("mykey3", array());
+</code></pre>
+
+<h4>Recuperar datos</h4>
+
+<pre><code>$data1 = $ses-&gt;get("mykey1");
+</code></pre>
+
+<h4>Recuperar todos los datos de session</h4>
+
+<pre><code>$allData = $ses-&gt;get();
+</code></pre>
+
+<h4>Datos por default cuando no existe la clave en sesion</h4>
+
+<pre><code>$defaultData = $ses-&gt;get("invalidKey", "data not found");
 </code></pre>
 
 <h2>Tests</h2>
@@ -169,7 +193,14 @@ $data = $ses-&gt;get("mykey");
 
 <h2>Changelog</h2>
 
-<h3>v1.0</h3>
+<h3>v1.0.1</h3>
+
+<ul>
+<li>Validaciones de tipo de dato los metodos set, get, delete</li>
+<li>Posibilidad de cambiar el nombre de sesion</li>
+</ul>
+
+<h3>v1.0.0</h3>
 
 <ul>
 <li>Fixed bug <a href="https://github.com/mostofreddy/sesy/issues/5">#5</a></li>
@@ -183,7 +214,7 @@ $data = $ses-&gt;get("mykey");
 <div id="footerphpmdtohtml">
     <p class="">
         Documentation is powered by <a href="https://github.com/mostofreddy/nicereadme">nicereadme</a>
-        and generated on Sat, 14 Sep 2013 07:32:17 -0300. <br/>
+        and generated on Wed, 09 Oct 2013 00:52:30 -0300. <br/>
         © Copyright 2013 - Mostofreddy
     </p>
 </div><div class="forkme">

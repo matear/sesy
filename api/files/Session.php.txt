@@ -40,16 +40,20 @@ namespace sesy;
 class Session
 {
     const ERR_SESSION_VIOLATED = "Invalid session";
-    const ERR_INVALID_SESSION_PATH = 'El path "%s" no es un directorio válido o no tiene permisos de escritura/lectura';
+    const ERR_INVALID_SESSION_PATH = 'A location "$s" is not a valid directory or not writable';
+    const ERR_INVALID_KEY = 'Invalid key. Expected a string';
     protected $keyToSaveToken = 'sesyTokenValidator';
     /**
      * Inicializa una sesion de php
      *
+     * @param string $name nombre de la session. Default: sesysession
+     *
      * @return void
      */
-    public function start()
+    public function start($name='sesySessionName')
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_name($name);
             session_start();
             $this->valid();
         }
@@ -136,7 +140,7 @@ class Session
      * Setea que las sesiones se guarden en Memcache utilizando los drivers nativos de php
      *
      * @param string $host ip del servidor de mmc. (Default: localhost)
-     * @param string $port puerto del servidor de mmc. (Default: 11211)
+     * @param int    $port puerto del servidor de mmc. (Default: 11211)
      *
      * @return \sesy\Session
      */
@@ -151,8 +155,8 @@ class Session
     /**
      * Recupera un valor de sesion. Si la clave es null o vacia se devuelve el array de sesion entero
      *
-     * @param mixed $key     clave del valor. (Default: null)
-     * @param mixed $default valor por default si no encuentra la key. (Default: null)
+     * @param string $key     clave del valor. (Default: null)
+     * @param mixed  $default valor por default si no encuentra la key. (Default: null)
      *
      * @access public
      *
@@ -160,6 +164,9 @@ class Session
      */
     public function get($key=null, $default=null)
     {
+        if (!is_string($key) && $key !== null) {
+            throw new \InvalidArgumentException(static::ERR_INVALID_KEY);
+        }
         if ($key == null) {
             return $_SESSION;
         } else if (array_key_exists($key, $_SESSION)) {
@@ -171,8 +178,8 @@ class Session
     /**
      * Setea un valor en sesion
      *
-     * @param mixed $key   Clave donde se almacenara el valor
-     * @param mixed $value Valor a guardar
+     * @param string $key   Clave donde se almacenara el valor
+     * @param mixed  $value Valor a guardar
      *
      * @access public
      *
@@ -180,6 +187,9 @@ class Session
      */
     public function set($key, $value)
     {
+        if (!is_string($key)) {
+            throw new \InvalidArgumentException(static::ERR_INVALID_KEY);
+        }
         $_SESSION[$key] = $value;
         return $this;
     }
@@ -187,7 +197,7 @@ class Session
     /**
      * Borra una variable de sesion
      *
-     * @param mixed $key Clave del valor a borrar
+     * @param string $key Clave del valor a borrar
      *
      * @access public
      *
@@ -195,6 +205,9 @@ class Session
      */
     public function delete($key)
     {
+        if (!is_string($key)) {
+            throw new \InvalidArgumentException(static::ERR_INVALID_KEY);
+        }
         if (array_key_exists($key, $_SESSION)) {
             unset($_SESSION[$key]);
         }

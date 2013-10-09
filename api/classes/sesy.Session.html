@@ -139,61 +139,25 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-171532584"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2021141511"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-171532584" class="accordion-body collapse in">
+            <div id="namespace-2021141511" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1681656077"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-488543288"></a>
                                 <a href="../namespaces/sesy.html" style="margin-left: 30px; padding-left: 0">sesy</a>
             </div>
-            <div id="namespace-1681656077" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1094409944"></a>
-                                <a href="../namespaces/sesy.tests.html" style="margin-left: 30px; padding-left: 0">tests</a>
-            </div>
-            <div id="namespace-1094409944" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-179216942"></a>
-                                <a href="../namespaces/sesy.tests.cases.html" style="margin-left: 30px; padding-left: 0">cases</a>
-            </div>
-            <div id="namespace-179216942" class="accordion-body collapse ">
+            <div id="namespace-488543288" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
-                                                                                                    <li class="class"><a href="../classes/sesy.tests.cases.SessionConfigTest.html">SessionConfigTest</a></li>
-                                                    <li class="class"><a href="../classes/sesy.tests.cases.SessionTest.html">SessionTest</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/sesy.SessionConfig.html">SessionConfig</a></li>
-                                                    <li class="class"><a href="../classes/sesy.SessionSecure.html">SessionSecure</a></li>
+                                                                                                    <li class="class"><a href="../classes/sesy.SessionSecure.html">SessionSecure</a></li>
+                                                    <li class="class"><a href="../classes/sesy.SessionConfig.html">SessionConfig</a></li>
                                                     <li class="class"><a href="../classes/sesy.Session.html">Session</a></li>
                                             </ul>
                 </div>
@@ -265,6 +229,7 @@
                             <section class="span4">
                                                                     <a href="../classes/sesy.Session.html#constant_ERR_SESSION_VIOLATED" class="">ERR_SESSION_VIOLATED</a><br />
                                                                     <a href="../classes/sesy.Session.html#constant_ERR_INVALID_SESSION_PATH" class="">ERR_INVALID_SESSION_PATH</a><br />
+                                                                    <a href="../classes/sesy.Session.html#constant_ERR_INVALID_KEY" class="">ERR_INVALID_KEY</a><br />
                                                             </section>
                         </section>
                         <section class="row-fluid protected">
@@ -297,7 +262,7 @@
                     
                     <dl>
                         <dt>File</dt>
-                            <dd><a href="../files/src.sesy.Session.php.html"><div class="path-wrapper">src/sesy/Session.php</div></a></dd>
+                            <dd><a href="../files/Session.php.html"><div class="path-wrapper">Session.php</div></a></dd>
                                                 <dt>Package</dt>
                             <dd><div class="namespace-wrapper">\Sesy\Sesy\Sesy</div></dd>
                                                 <dt>Class hierarchy</dt>
@@ -405,6 +370,28 @@
         </aside>
     </div>
 
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_ERR_INVALID_KEY" name="constant_ERR_INVALID_KEY" class="anchor"></a>
+            <article id="constant_ERR_INVALID_KEY" class="constant">
+                <h3 class="">ERR_INVALID_KEY</h3>
+                <pre class="signature">ERR_INVALID_KEY</pre>
+                <p><em></em></p>
+                
+
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
                             
                                     <a id="properties" name="properties"></a>
             <div class="row-fluid">
@@ -450,11 +437,20 @@
             <article class="method">
                 <h3 class="public ">start()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">start() : void</pre>
+                <pre class="signature" style="margin-right: 54px;">start(string <span class="argument">$name</span>) : void</pre>
                 <p><em>Inicializa una sesion de php</em></p>
                 
 
 
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>nombre de la session. Default: sesysession</p>
+</td>
+                            </tr>
+                                            </table>
                 
                 
                             </article>
@@ -580,7 +576,7 @@
             <article class="method">
                 <h3 class="public ">storeInMmc()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">storeInMmc(string <span class="argument">$host</span>, string <span class="argument">$port</span>) : \sesy\Session</pre>
+                <pre class="signature" style="margin-right: 54px;">storeInMmc(string <span class="argument">$host</span>, int <span class="argument">$port</span>) : \sesy\Session</pre>
                 <p><em>Setea que las sesiones se guarden en Memcache utilizando los drivers nativos de php</em></p>
                 
 
@@ -594,7 +590,7 @@
 </td>
                             </tr>
                                                     <tr>
-                                <td>string</td>
+                                <td>int</td>
                                 <td>$port</td>
                                 <td><p>puerto del servidor de mmc. (Default: 11211)</p>
 </td>
@@ -623,7 +619,7 @@
             <article class="method">
                 <h3 class="public ">get()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">get(mixed <span class="argument">$key</span>, mixed <span class="argument">$default</span>) : mixed</pre>
+                <pre class="signature" style="margin-right: 54px;">get(string <span class="argument">$key</span>, mixed <span class="argument">$default</span>) : mixed</pre>
                 <p><em>Recupera un valor de sesion. Si la clave es null o vacia se devuelve el array de sesion entero</em></p>
                 
 
@@ -631,7 +627,7 @@
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td>mixed</td>
+                                <td>string</td>
                                 <td>$key</td>
                                 <td><p>clave del valor. (Default: null)</p>
 </td>
@@ -668,7 +664,7 @@
             <article class="method">
                 <h3 class="public ">set()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">set(mixed <span class="argument">$key</span>, mixed <span class="argument">$value</span>) : \sesy\Session</pre>
+                <pre class="signature" style="margin-right: 54px;">set(string <span class="argument">$key</span>, mixed <span class="argument">$value</span>) : \sesy\Session</pre>
                 <p><em>Setea un valor en sesion</em></p>
                 
 
@@ -676,7 +672,7 @@
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td>mixed</td>
+                                <td>string</td>
                                 <td>$key</td>
                                 <td><p>Clave donde se almacenara el valor</p>
 </td>
@@ -711,7 +707,7 @@
             <article class="method">
                 <h3 class="public ">delete()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">delete(mixed <span class="argument">$key</span>) : \sesy\Session</pre>
+                <pre class="signature" style="margin-right: 54px;">delete(string <span class="argument">$key</span>) : \sesy\Session</pre>
                 <p><em>Borra una variable de sesion</em></p>
                 
 
@@ -719,7 +715,7 @@
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td>mixed</td>
+                                <td>string</td>
                                 <td>$key</td>
                                 <td><p>Clave del valor a borrar</p>
 </td>
@@ -803,7 +799,7 @@
             <h3 id="source-view-label">Session.php</h3>
         </div>
         <div class="modal-body">
-            <pre data-src="../files/src/sesy/Session.php.txt" class="language-php line-numbers"></pre>
+            <pre data-src="../files/Session.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
@@ -844,7 +840,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 14th, 2013 at 07:32.
+                    on October 9th, 2013 at 02:55.
                 </section>
             </section>
         </section>
