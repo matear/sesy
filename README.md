@@ -58,7 +58,7 @@ Ver [API](http://mostofreddy.github.io/sesy/api/)
 Versión
 -------
 
-- __v1.0.0__ stable
+- __v1.0.1__ stable
 - __v1.1.0__ desarrollo
 
 Licencia
@@ -142,7 +142,7 @@ Visite la carpeta de [demos](https://github.com/mostofreddy/sesy/tree/master/dem
 Changelog
 ---------
 
-### Master
+### v1.0.1
 
 - Validaciones de tipo de dato los metodos set, get, delete
 - Posibilidad de cambiar el nombre de sesion
